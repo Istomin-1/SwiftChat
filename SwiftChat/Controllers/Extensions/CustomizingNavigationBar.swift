@@ -9,10 +9,9 @@ import UIKit
 
 extension ChatsTableViewController {
     
-    func updateTabBar() {
-        
+    func updateNavigationBar() {
         self.navigationController?.setNavigationBarHidden(false, animated: false)
-
+        
         let shadowView = self.navigationController!.navigationBar
         
         if #available(iOS 13.0, *) {

@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="StartScreen" translatesAutoresizingMaskIntoConstraints="NO" id="MtI-Hn-WkI">
-                                <rect key="frame" x="39.5" y="131" width="296" height="141"/>
+                                <rect key="frame" x="39.5" y="132" width="296" height="141"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -25,7 +25,7 @@
                         <constraints>
                             <constraint firstItem="MtI-Hn-WkI" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" multiplier="0.789333" id="JZf-7X-TBA"/>
                             <constraint firstItem="MtI-Hn-WkI" firstAttribute="height" secondItem="Ze5-6b-2t3" secondAttribute="height" multiplier="0.211394" id="Uay-Cu-OtT"/>
-                            <constraint firstItem="MtI-Hn-WkI" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="131" id="gxZ-Lj-ZgZ"/>
+                            <constraint firstItem="MtI-Hn-WkI" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="132" id="gxZ-Lj-ZgZ"/>
                             <constraint firstItem="MtI-Hn-WkI" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="sU3-he-nJf"/>
                         </constraints>
                     </view>
