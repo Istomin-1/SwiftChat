@@ -6,10 +6,11 @@
 //
 
 import UIKit
+import RealmSwift
 
 class ChatsTableViewController: UITableViewController {
     
-    var chats = [ChatModel]()
+    var chats: Results<ChatModel>!
     
     var one = UIView()
 
@@ -17,13 +18,19 @@ class ChatsTableViewController: UITableViewController {
  
     let cellSpacingHeight: CGFloat = 16
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        chats = localRealm.objects(ChatModel.self)
+        
+                
         one = startApp()
-        chats = [ChatModel(titleChat: "One", timeChat: Date())]
         startScreen()
-
         updateTabBar()
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "iconAdd"), style: .done, target: self, action: #selector(addChat))
     }
@@ -33,15 +40,21 @@ class ChatsTableViewController: UITableViewController {
         let index = chats.count + 1
         let indexSet = IndexSet(arrayLiteral: index - 1)
         
-        let newChat = ChatModel(titleChat: "Two", timeChat: Date())
-        chats.append(newChat)
-        tableView.insertSections(indexSet, with: .right)
+        let newChat = ChatModel()
+        newChat.titleChat = "Hello"
         
+        StorageManager.saveChats(newChat)
+//        chats.append(newChat)
+        tableView.insertSections(indexSet, with: .right)
+        startScreen()
     }
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
+        if chats.count != 0 {
         return chats.count
+        }
+        return 0
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -88,11 +101,12 @@ class ChatsTableViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-//        let chat = chats[indexPath.row]
+        let chat = chats[indexPath.row]
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { (UIContextualAction, view, boolValue) in
-            self.chats.remove(at: indexPath.section)
+            StorageManager.deleteChat(chat)
             let indexSet = IndexSet(arrayLiteral: indexPath.section)
             tableView.deleteSections(indexSet, with: .left)
+            self.startScreen()
         }
         deleteAction.image = UIImage(imageLiteralResourceName: "iconDelete").withTintColor(UIColor.white)
         
@@ -104,8 +118,6 @@ class ChatsTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "chatsCell", for: indexPath) as! ChatsTableViewCell
         
-        
-        
         cell.contentView.backgroundColor = .black
         cell.contentView.layer.cornerRadius = 8.0
 
@@ -114,5 +126,13 @@ class ChatsTableViewController: UITableViewController {
         cell.configureCell(object: chat)
 
         return cell
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let indexPath = tableView.indexPathForSelectedRow {
+            let chat = chats[indexPath.section]
+            let messagesCVC = segue.destination as! MessagesViewController
+            messagesCVC.currentMessages = chat
+        }
     }
 }

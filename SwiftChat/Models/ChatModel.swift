@@ -6,24 +6,21 @@
 //
 
 import Foundation
+import RealmSwift
 
-struct ChatModel {
+class ChatModel: Object {
     
-    let titleChat: String
+    @objc dynamic var titleChat: String = ""
     
-    let timeChat: Date
-    var timeChatString: String {
-    let time = timeChat
-    let dateNow = DateFormatter()
-        dateNow.dateFormat = "HH:mm"
-        
-        let timeString = dateNow.string(from: time)
-        
-        return timeString
-    }
-//    init(chatModel: ChatModel) {
-//        titleChat = chatModel.titleChat
-//        timeChat = Date()
+    @objc dynamic var timeChat = Date()
+    
+    let messages = List<MessagesModel>()
+//    var timeChatString: String {
+//    let dateNow = DateFormatter()
+//        dateNow.dateFormat = "HH:mm"
+//        let timeString = dateNow.string(from: timeChat)
+//
+//        return timeString
 //    }
     
 }

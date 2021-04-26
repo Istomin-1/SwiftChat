@@ -26,8 +26,16 @@ class ChatsTableViewCell: UITableViewCell {
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16))
     }
     
+//    var timeChatString: String {
+//    let dateNow = DateFormatter()
+//        dateNow.dateFormat = "HH:mm"
+//        let timeString = dateNow.string(from: timeChat)
+//
+//        return timeString
+//    }
+    
     func configureCell(object: ChatModel) {
         self.titleChat.text = object.titleChat
-        self.timeChat.text = object.timeChatString
+//        self.timeChat.text = object.timeChatString
     }
 }

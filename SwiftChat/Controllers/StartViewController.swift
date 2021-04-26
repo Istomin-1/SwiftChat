@@ -50,6 +50,15 @@ class StartViewController: UIViewController {
         startButton.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
         updateButton()
     }
+    @IBAction func startButtonTapped(_ sender: Any) {
+        
+        showSpinner()
+        
+        Timer.scheduledTimer(withTimeInterval: 1.0, repeats: false) { (t) in
+            self.removeSpinner()
+            self.performSegue(withIdentifier: "chatsSegue", sender: nil)
+        }
+    }
     
     func updateButton() {
 
